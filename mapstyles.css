@@ -46,8 +46,8 @@ body {
 /* Toggle switch container */
 #unit-toggle {
     position: absolute;
-    top: auto; /* 10px below the menu bar */
-    right: 20px; /* Positioned 20px from the right edge */
+    top: auto;  /*10px below the menu bar */
+    right: 0px;  /*Positioned 20px from the right edge */
     z-index: 500;
     display: flex;
     align-items: center;

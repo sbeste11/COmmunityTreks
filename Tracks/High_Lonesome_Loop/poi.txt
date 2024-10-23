@@ -1,0 +1,4 @@
+[    
+    {        "name": "Indian Peaks Wilderness",        "lat": 39.956787,        "lng": -105.621758,        "icon": "boundary",        "description": "This is a POI!"    },
+    {        "name": "Pass",        "lat": 39.966572,        "lng": -105.688418,        "icon": "pass",        "description": "This is a POI!"    }
+]

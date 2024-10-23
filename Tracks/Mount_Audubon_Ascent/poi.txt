@@ -1,0 +1,3 @@
+[
+    { "name": "Summit", "lat": 40.09892, "lng": -105.61641, "icon": "summit", "description": "This is a POI!" }
+]
