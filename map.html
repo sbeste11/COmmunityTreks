@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>COmmunity-Treks mapbox map</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+        <link rel="stylesheet" href="mapstyles.css">
+
+        <!--Mapbox js and turf js (for spacial analysis)-->
+        <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+
+        <!--togeojson library-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/togeojson/0.16.0/togeojson.min.js"></script>
+    </head>
+
+    <body>
+        <!-- logo -->
+        <div id="logo-container">
+            <a href="homepage.html">
+                <img src="images/logo.svg" alt="Logo" id="logo">
+            </a>
+        </div>
+
+        <!-- Map toggle switch -->
+        <div id="unit-toggle">
+            <label class="switch">
+                <input type="checkbox" id="unitSwitch">
+                <span class="slider"></span>
+            </label>
+            <span id="unitLabel">Kilometers</span>
+        </div>
+
+
+        <!--map is contained in div below --> 
+        <div id="map"></div> 
+        
+        <!-- Link to external JavaScript file -->
+        <script src="mapscript.js"></script>
+    </body>
+</html>

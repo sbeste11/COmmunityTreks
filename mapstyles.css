@@ -1,0 +1,112 @@
+/* Reset margin and padding */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the map container */
+#map {
+    position: absolute;
+    top: 0px; /* Adjust height of menu bar */
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+
+/* ----------------- BEGIN LOGO OPTIONS -----------------*/
+/* Logo container styling */
+#logo-container {
+    position: fixed;
+    top: 20px; /* Adjust the distance from the top */
+    left: 20px; /* Adjust the distance from the left */
+    z-index: 1000; /* Make sure it stays above the map */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: add a slight background for contrast */
+    border-radius: 5px; /* Optional: add a border radius for a rounded effect */
+    padding: 5px; /* Add padding around the logo */
+    width: auto; /* Ensure the width adjusts to the content */
+    max-width: 100px; /* Set a maximum width to prevent the logo from being too large */
+}
+
+/* Logo image styling */
+#logo-container img {
+    width: 100%; /* Make the image fill the container width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100%; /* Make sure the image does not exceed the container’s width */
+    cursor: pointer; /* Make it clear the logo is clickable */
+}
+
+
+/* ----------------- END LOGO OPTIONS -----------------*/
+
+
+
+/* ----------------- BEGIN KM/MI toggle -----------------*/
+/* Toggle switch container */
+#unit-toggle {
+    position: absolute;
+    top: auto; /* 10px below the menu bar */
+    right: 20px; /* Positioned 20px from the right edge */
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    padding: 5%;
+}
+
+/* Switch styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+/* Hide the checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #000000;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Label styling */
+#unitLabel {
+    font-size: 16px;
+    color: white;
+}
+/* ----------------- END KM/MI toggle -----------------*/
+
