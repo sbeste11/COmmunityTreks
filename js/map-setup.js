@@ -4,8 +4,8 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2Jlc3RlIiwiYSI6ImNtMXRrMXJkZDAzNHIybG9odnR4a
 // creation of map
 const map = new mapboxgl.Map({
     container: 'map', // name of div id
-    center: [-105.6129, 39.95366], // starting position [lng, lat]. Note that lat must be set between -90 and 90
-    zoom: 12, // starting zoom
+    center: [-105.6129, 39.99366], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+    zoom: 10, // starting zoom
     style: 'mapbox://styles/mapbox/outdoors-v12'
 });
 

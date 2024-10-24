@@ -1,10 +1,18 @@
 [
     { 
+        "name": "Mount Audubon Ascent", 
+        "lat": 40.083643, 
+        "lng": -105.581157, 
+        "icon": "flag", 
+        "description": "Mount Audubon<br><br> An 8 and mile out and back from Mitchell Lake Trailhead. Permits are needed to access this trailhead directly by car during the summer, they can be found at: <a href='https://www.recreation.gov/timed-entry/10087515/ticket/10087516' target='_blank'>recreation.gov site</a>",
+        "image": ""
+    },
+    { 
         "name": "Summit", 
         "lat": 40.09892, 
         "lng": -105.61641, 
         "icon": "summit", 
-        "description": "This is a POI!",
-        "image": "./"
+        "description": "Mount Audubon Summit<br><br> Look north to Rocky Mountain National park and Longs peak. Look south towards South and North Arapahoe peak.",
+        "image": "./Tracks/Mount_Audubon_Ascent/Audubon_Summit.jpg"
     }
 ]
