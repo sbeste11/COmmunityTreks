@@ -108,6 +108,11 @@ function loadGPXTracksWithPOIs(tracks, index) {
                             'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
                             'text-offset': [0, 1],
                             'text-anchor': 'top'
+                        },
+                        'paint': {
+                            'text-color': '#666666', // Set the text color for the POI labels
+                            'text-halo-color': 'white', // Optional: Add a halo for better visibility
+                            'text-halo-width': 1
                         }
                     });
                 }
