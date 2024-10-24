@@ -1,9 +1,9 @@
 [   
     {        
         "name": "High Lonesome Loop Start and Finish",        
-        "lat": 39.951535, 
-        "lng": -105.594934,        
-        "icon": "startfinish",        
+        "lat": 39.954819, 
+        "lng": -105.602767,  
+        "icon": "flag",        
         "description": "Hessie Trailhead is the start and finish for the route. You can take the bus from Nederland Highschool ",
         "image": ""    
     }, 
