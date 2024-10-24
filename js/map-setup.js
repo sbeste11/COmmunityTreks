@@ -11,6 +11,7 @@ const map = new mapboxgl.Map({
 
 // Global variable to track unit preference (kilometers by default)
 let isKilometers = true; // This will store the user's unit preference
+let isLight = true; // This will store the user's color preference
 
 // Array to store popup information for routes and POIs
 const popupdata = [];

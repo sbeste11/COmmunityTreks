@@ -76,10 +76,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const unitSwitch = document.getElementById('unitSwitch');
     const unitLabel = document.getElementById('unitLabel');
 
+    const colorModeSwitch = document.getElementById('colorModeSwitch');
+    const colorModeLabel = document.getElementById('colorModeLabel');
+
     // Add event listener to toggle switch
     unitSwitch.addEventListener('change', function () {
         isKilometers = unitSwitch.checked ? false : true;
-        unitLabel.textContent = isKilometers ? 'Kilometers' : 'Miles';
+        unitLabel.textContent = isKilometers ? 'Km' : 'Mi';
 
         // Update all open popups with the new unit
         popupdata.forEach(popupEntry => {
@@ -87,6 +90,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 popupEntry.updateContent(); // Call the stored update function for each open popup
             }
         });
+    });
+
+    colorModeSwitch.addEventListener('change', function () {
+        isLight = colorModeLabel.checked ? false : true;
+        colorModeLabel.textContent = isLight ? 'light' : 'dark';
+
+        console.log('color mode change');
     });
 });
 
