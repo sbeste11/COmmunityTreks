@@ -19,9 +19,6 @@ function loadGPXTracksWithPOIs(tracks, index) {
 
                 // Unique source and layer IDs for each GPX track
                 const sourceId = `gpxTrack${index}`;
-                console.log('track: ', track.url);
-                console.log('track Id: ', sourceId);
-                console.log('index: ', index);
                 const layerId = `gpxTrackLine${index}`;
                 const poiSourceId = `gpxTrackPOIsSource${index}`;
                 const poiLayerId = `gpxTrackPOIs${index}`;

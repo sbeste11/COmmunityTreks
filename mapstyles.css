@@ -42,11 +42,36 @@ body {
 
 
 
-/* ----------------- BEGIN KM/MI toggle -----------------*/
-/* Toggle switch container */
+/* ----------------- BEGIN toggles -----------------*/
+/*  toggle switches container */
+#toggles-bar {
+    position: absolute;
+    top: auto;  
+    right: 10px; 
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 5%;
+    background-color: #000;
+    color: #fff;
+    opacity: .5;
+}
+
+/* unit toggle switch container */
 #unit-toggle {
     position: absolute;
-    top: auto;  /*10px below the menu bar */
+    top: 0px;  /*10px below the menu bar */
+    right: 0px;  /*Positioned 20px from the right edge */
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    padding: 5%;
+}
+
+/* color toggle switch container */
+#color-toggle {
+    position: absolute;
+    top: 40px;  /*10px below the menu bar */
     right: 0px;  /*Positioned 20px from the right edge */
     z-index: 500;
     display: flex;
