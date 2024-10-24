@@ -28,7 +28,7 @@ map.loadImage('./Images/pass.png', function (error, image) {
     map.addImage('pass', image);
 });
 
-map.loadImage('./Images/tree.png', function (error, image) {
+map.loadImage('./Images/pass.png', function (error, image) {
     if (error) throw error;
     map.addImage('summit', image);
 });

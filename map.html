@@ -12,6 +12,8 @@
 
         <!--togeojson library-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/togeojson/0.16.0/togeojson.min.js"></script>
+        
+        <link rel="icon" type="image/x-icon" href="./Images/favicon.ico">
     </head>
 
     <body>
@@ -33,13 +35,15 @@
                 <span id="unitLabel">Km</span>
             </div>
 
-            <!-- light dark toggle switch -->
-            <div id="color-toggle">
-                <label class="switch">
-                    <input type="checkbox" id="colorModeSwitch">
-                    <span class="slider"></span>
-                </label>
-                <span id="colorModeLabel">light</span>
+            <!-- map style dropdown -->
+            <div id="map-style-toggle">
+                <label for="mapStyleSelect">Map Style:</label>
+                <select id="mapStyleSelect">
+                    <option value="default">Default</option>
+                    <option value="light">Light Topo</option>
+                    <option value="dark">Dark Topo</option>
+                    <option value="satellite">Satellite</option>
+                </select>
             </div>
         </div>
 

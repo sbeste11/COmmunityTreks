@@ -71,34 +71,151 @@ function calculateDistanceAndElevation(geojson, nearestPoint, direction) {
 
 
 
-// Unit Toggle Logic
+// Unit Toggle and user preferences Logic
 document.addEventListener('DOMContentLoaded', function () {
     const unitSwitch = document.getElementById('unitSwitch');
-    const unitLabel = document.getElementById('unitLabel');
+    const unitLabel = document.getElementById('unitLabel'); // Get the label element
+    const mapStyleSelect = document.getElementById('mapStyleSelect');
 
-    const colorModeSwitch = document.getElementById('colorModeSwitch');
-    const colorModeLabel = document.getElementById('colorModeLabel');
+    // Set expiration time (30 minutes)
+    const expirationTime = 30 * 60 * 1000; // 30 minutes in milliseconds
 
-    // Add event listener to toggle switch
+    // Load stored preferences if available and still valid
+    loadPreferences();
+
+    // Event listener for the unit switch
     unitSwitch.addEventListener('change', function () {
-        isKilometers = unitSwitch.checked ? false : true;
-        unitLabel.textContent = isKilometers ? 'Km' : 'Mi';
+        // Update the global variable based on the switch state
+        isKilometers = !unitSwitch.checked; // If the switch is checked, it's miles; otherwise, it's kilometers
+        
+        const unit = unitSwitch.checked ? 'miles' : 'km';
+        setPreference('unit', unit);
 
-        // Update all open popups with the new unit
+        // Update the unit label based on the switch state
+        unitLabel.textContent = unitSwitch.checked ? 'Miles' : 'Km';
+
+        // Update all active popups
+        updateAllPopups();
+    });
+
+    // Event listener for the map style dropdown
+    mapStyleSelect.addEventListener('change', function () {
+        const selectedStyle = mapStyleSelect.value;
+        setPreference('mapStyle', selectedStyle);
+        applyMapStyle(selectedStyle);
+    });
+
+    // Function to set and save preferences
+    function setPreference(key, value) {
+        const currentTime = new Date().getTime();
+        const preference = {
+            value: value,
+            timestamp: currentTime
+        };
+        localStorage.setItem(key, JSON.stringify(preference));
+    }
+
+    // Function to load preferences and apply them if valid
+    function loadPreferences() {
+        // Load and validate unit preference
+        const unitPreference = JSON.parse(localStorage.getItem('unit'));
+        if (unitPreference && isValid(unitPreference.timestamp)) {
+            unitSwitch.checked = unitPreference.value === 'miles';
+            isKilometers = unitPreference.value !== 'miles';
+            unitLabel.textContent = unitSwitch.checked ? 'Miles' : 'Km';
+        }
+
+        // Load and validate map style preference
+        const mapStylePreference = JSON.parse(localStorage.getItem('mapStyle'));
+        if (mapStylePreference && isValid(mapStylePreference.timestamp)) {
+            mapStyleSelect.value = mapStylePreference.value;
+            applyMapStyle(mapStylePreference.value);
+        } else {
+            // Apply the default map style if none is set
+            applyMapStyle('default');
+        }
+    }
+
+    // Function to check if a stored preference is still valid
+    function isValid(timestamp) {
+        const currentTime = new Date().getTime();
+        return currentTime - timestamp < expirationTime;
+    }
+
+    // Function to update all active popups
+    function updateAllPopups() {
+        // Iterate through the popupdata array and update each popup
         popupdata.forEach(popupEntry => {
-            if (popupEntry.popup != null) {
-                popupEntry.updateContent(); // Call the stored update function for each open popup
-            }
+            popupEntry.updateContent();
         });
-    });
-
-    colorModeSwitch.addEventListener('change', function () {
-        isLight = colorModeLabel.checked ? false : true;
-        colorModeLabel.textContent = isLight ? 'light' : 'dark';
-
-        console.log('color mode change');
-    });
+    }
 });
 
 
+// Function to update the style of the toggle bar and POI text
+function updateToggleBarStyle(backgroundColor, textColor) {
+    const toggleBar = document.getElementById('toggles-bar');
+    toggleBar.style.backgroundColor = backgroundColor === 'black' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+    toggleBar.style.color = textColor;
 
+    // Update the color of labels and other text elements inside the toggle bar
+    const labels = toggleBar.querySelectorAll('label, span, select');
+    labels.forEach(label => {
+        label.style.color = textColor;
+    });
+}
+
+
+function applyMapStyle(style) {
+    switch (style) {
+        case 'light':
+            map.setStyle('mapbox://styles/mapbox/light-v10');
+            updateToggleBarStyle('black', 'white');
+            break;
+        case 'dark':
+            map.setStyle('mapbox://styles/mapbox/dark-v10');
+            updateToggleBarStyle('white', 'black');
+            break;
+        case 'satellite':
+            map.setStyle('mapbox://styles/mapbox/satellite-v9');
+            updateToggleBarStyle('white', 'black');
+            break;
+        default:
+            map.setStyle('mapbox://styles/mapbox/outdoors-v12');
+            updateToggleBarStyle('black', 'white');
+    }
+
+    // After setting the style, wait for it to load before re-adding icons and layers
+    map.once('style.load', function () {
+        // Reload POIs and Tracks
+        reloadRoutesAndPOIs();
+    });
+}
+
+// Function to reload routes and POIs after style change
+function reloadRoutesAndPOIs() {
+    // Reload POI icons
+    loadPOIIcons(); 
+
+    // Fetch the tracks from the JSON file
+    fetch('Tracks/tracks.json')
+        .then(response => response.json())
+        .then(tracks => {
+            return Promise.all(
+                tracks.map((track, index) => {
+                    // Load POIs for each track
+                    return loadPOIs(track.url).then(pois => {
+                        track.pois = pois; // Assign loaded POIs to the track
+                        return { track, index }; // Return the track along with its index
+                    });
+                })
+            );
+        })
+        .then(tracksWithIndices => {
+            // Now load each track with the preserved index
+            tracksWithIndices.forEach(({ track, index }) => {
+                loadGPXTracksWithPOIs([track], index);
+            });
+        })
+        .catch(error => console.error('Error loading tracks file:', error));
+}

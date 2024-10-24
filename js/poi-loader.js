@@ -18,3 +18,34 @@ function loadPOIs(trackUrl) {
             return [];
         });
 }
+
+function loadPOIIcons() {
+    // Load each icon image you want to use for your POIs
+    map.loadImage('./Images/wilderness.png', function (error, image) {
+        if (error) throw error;
+        if (!map.hasImage('boundary')) {
+            map.addImage('boundary', image);
+        }
+    });
+
+    map.loadImage('./Images/pass.png', function (error, image) {
+        if (error) throw error;
+        if (!map.hasImage('pass')) {
+            map.addImage('pass', image);
+        }
+    });
+
+    map.loadImage('./Images/pass.png', function (error, image) {
+        if (error) throw error;
+        if (!map.hasImage('summit')) {
+            map.addImage('summit', image);
+        }
+    });
+
+    map.loadImage('./Images/flag.png', function (error, image) {
+        if (error) throw error;
+        if (!map.hasImage('flag')) {
+            map.addImage('flag', image);
+        }
+    });
+}

@@ -24,6 +24,16 @@ function loadGPXTracksWithPOIs(tracks, index) {
                 const poiLayerId = `gpxTrackPOIs${index}`;
                 const nameLayerId = `gpxTrackName${index}`;
 
+                // Remove existing sources and layers if they already exist
+                if (map.getSource(sourceId)) {
+                    map.removeLayer(layerId);
+                    map.removeSource(sourceId);
+                }
+                if (map.getSource(poiSourceId)) {
+                    map.removeLayer(poiLayerId);
+                    map.removeSource(poiSourceId);
+                }
+
                 // Add the GPX track as a GeoJSON source
                 map.addSource(sourceId, {
                     'type': 'geojson',
@@ -158,31 +168,25 @@ function loadGPXTracksWithPOIs(tracks, index) {
 
 // Load multiple GPX files
 map.on('load', function () {
-    const tracks = [
-        {
-            url: 'Tracks/High_Lonesome_Loop/High_Lonesome_Loop.gpx',
-            type: 'loop',
-            defaultDirection: 'counterclockwise',
-            selectedDirection: 'counterclockwise'
-        },
-        {
-            url: 'Tracks/Mount_Audubon_Ascent/Mount_Audubon_Ascent.gpx',
-            type: 'direct'
-        }
-    ];
-
-    // Use map and Promise.all to correctly preserve the index
-    Promise.all(
-        tracks.map((track, index) => {
-            return loadPOIs(track.url).then(pois => {
-                track.pois = pois; // Assign loaded POIs to the track
-                return { track, index }; // Return the track along with its index
+    // Fetch the tracks from the JSON file
+    fetch('Tracks/tracks.json')
+        .then(response => response.json())
+        .then(tracks => {
+            // Use Promise.all to load POIs for all tracks before processing them
+            return Promise.all(
+                tracks.map((track, index) => {
+                    return loadPOIs(track.url).then(pois => {
+                        track.pois = pois; // Assign loaded POIs to the track
+                        return { track, index }; // Return the track along with its index
+                    });
+                })
+            );
+        })
+        .then(tracksWithIndices => {
+            // Now load each track with the preserved index
+            tracksWithIndices.forEach(({ track, index }) => {
+                loadGPXTracksWithPOIs([track], index);
             });
         })
-    ).then(tracksWithIndices => {
-        // Now load each track with the preserved index
-        tracksWithIndices.forEach(({ track, index }) => {
-            loadGPXTracksWithPOIs([track], index);
-        });
-    });
+        .catch(error => console.error('Error loading tracks file:', error));
 });

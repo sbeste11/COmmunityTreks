@@ -1,0 +1,12 @@
+[
+    {
+        "url": "Tracks/High_Lonesome_Loop/High_Lonesome_Loop.gpx",
+        "type": "loop",
+        "defaultDirection": "counterclockwise",
+        "selectedDirection": "counterclockwise"
+    },
+    {
+        "url": "Tracks/Mount_Audubon_Ascent/Mount_Audubon_Ascent.gpx",
+        "type": "direct"
+    }
+]
