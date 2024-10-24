@@ -19,9 +19,6 @@ function loadGPXTracksWithPOIs(tracks, index) {
 
                 // Unique source and layer IDs for each GPX track
                 const sourceId = `gpxTrack${index}`;
-                console.log('track: ', track.url);
-                console.log('track Id: ', sourceId);
-                console.log('index: ', index);
                 const layerId = `gpxTrackLine${index}`;
                 const poiSourceId = `gpxTrackPOIsSource${index}`;
                 const poiLayerId = `gpxTrackPOIs${index}`;
@@ -74,7 +71,8 @@ function loadGPXTracksWithPOIs(tracks, index) {
                         "properties": {
                             "name": poi.name,
                             "icon": poi.icon,
-                            "description": poi.description
+                            "description": poi.description,
+                            "image": poi.image
                         }
                     }));
 
@@ -104,55 +102,55 @@ function loadGPXTracksWithPOIs(tracks, index) {
                     });
                 }
 
-                // Create a GeoJSON feature for the route name at the start point
-                const startPoint = coordinates[0];
-                const routeNameFeature = {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": startPoint
-                    },
-                    "properties": {
-                        "name": track.name,
-                        "routeInfo": {
-                            "distance": distance,
-                            "elevationGain": totalElevationGain
-                        }
-                    }
-                };
+                // // Create a GeoJSON feature for the route name at the start point
+                // const startPoint = coordinates[0];
+                // const routeNameFeature = {
+                //     "type": "Feature",
+                //     "geometry": {
+                //         "type": "Point",
+                //         "coordinates": startPoint
+                //     },
+                //     "properties": {
+                //         "name": track.name,
+                //         "routeInfo": {
+                //             "distance": distance,
+                //             "elevationGain": totalElevationGain
+                //         }
+                //     }
+                // };
 
-                // Add a new source for the route name
-                map.addSource(`${sourceId}-routeName`, {
-                    'type': 'geojson',
-                    'data': {
-                        "type": "FeatureCollection",
-                        "features": [routeNameFeature]
-                    }
-                });
+                // // Add a new source for the route name
+                // map.addSource(`${sourceId}-routeName`, {
+                //     'type': 'geojson',
+                //     'data': {
+                //         "type": "FeatureCollection",
+                //         "features": [routeNameFeature]
+                //     }
+                // });
 
-                // Add a symbol layer for the route name
-                map.addLayer({
-                    'id': nameLayerId,
-                    'type': 'symbol',
-                    'source': `${sourceId}-routeName`,
-                    'layout': {
-                        'text-field': ['get', 'name'],
-                        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-                        'text-size': 12,
-                        'text-offset': [0, 1.5],
-                        'text-anchor': 'top',
-                        'text-allow-overlap': true
-                    },
-                    'paint': {
-                        'text-color': '#000000' // Set a color for the route name text
-                    }
-                });
+                // // Add a symbol layer for the route name
+                // map.addLayer({
+                //     'id': nameLayerId,
+                //     'type': 'symbol',
+                //     'source': `${sourceId}-routeName`,
+                //     'layout': {
+                //         'text-field': ['get', 'name'],
+                //         'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                //         'text-size': 12,
+                //         'text-offset': [0, 1.5],
+                //         'text-anchor': 'top',
+                //         'text-allow-overlap': true
+                //     },
+                //     'paint': {
+                //         'text-color': '#000000' // Set a color for the route name text
+                //     }
+                // });
 
                 // Add POI interactions
                 addPOIPopupInteraction(poiLayerId);
 
                 // Add route name popup interaction
-                addRouteNamePopupInteraction(nameLayerId, track.name, distance, totalElevationGain);
+                //addRouteNamePopupInteraction(nameLayerId, track.name, distance, totalElevationGain);
 
                 // Add interactions based on route type
                 if (track.type === 'loop') {

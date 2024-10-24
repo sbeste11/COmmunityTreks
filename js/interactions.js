@@ -103,14 +103,22 @@ function addPOIPopupInteraction(poiLayerId) {
         const coordinates = features.geometry.coordinates.slice();
         const name = features.properties.name;
         const description = features.properties.description || 'No description available';
+        const imageUrl = features.properties.image || '';
 
-        // Create the popup
+        // Create the popup content with an image if available
+        let popupContent = `
+            <strong>${name}</strong><br>
+            ${description}
+        `;
+
+        if (imageUrl) {
+            popupContent += `<br><img src="${imageUrl}" alt="${name}" style="width: 100%; max-width: 200px; margin-top: 10px;">`;
+        }
+
+        // Create and add the popup to the map
         const popup = new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setHTML(`
-                <strong>${name}</strong><br>
-                ${description}
-            `)
+            .setHTML(popupContent)
             .addTo(map);
     });
 
@@ -125,24 +133,25 @@ function addPOIPopupInteraction(poiLayerId) {
     });
 }
 
+
 //-------------------Route name Popup------------
-function addRouteNamePopupInteraction(layerId, trackName, distance, totalElevationGain) {
-    map.on('click', function (e) {
-        // Only proceed if the clicked feature is the track name, not the line itself or a POI
-        const features = map.queryRenderedFeatures(e.point, { layers: [layerId] });
-        if (features.length === 0) return;
+// function addRouteNamePopupInteraction(layerId, trackName, distance, totalElevationGain) {
+//     map.on('click', function (e) {
+//         // Only proceed if the clicked feature is the track name, not the line itself or a POI
+//         const features = map.queryRenderedFeatures(e.point, { layers: [layerId] });
+//         if (features.length === 0) return;
 
-        const coordinates = e.lngLat;
+//         const coordinates = e.lngLat;
 
-        const popupContent = `
-            <strong>${trackName}</strong><br>
-            Total Distance: ${convertDistance(distance)}<br>
-            Total Elevation Gain: ${convertElevation(totalElevationGain)}
-        `;
+//         const popupContent = `
+//             <strong>${trackName}</strong><br>
+//             Total Distance: ${convertDistance(distance)}<br>
+//             Total Elevation Gain: ${convertElevation(totalElevationGain)}
+//         `;
 
-        const popup = new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(popupContent)
-            .addTo(map);
-    });
-}
+//         const popup = new mapboxgl.Popup()
+//             .setLngLat(coordinates)
+//             .setHTML(popupContent)
+//             .addTo(map);
+//     });
+// }

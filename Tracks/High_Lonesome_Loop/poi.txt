@@ -1,4 +1,26 @@
-[    
-    {        "name": "Indian Peaks Wilderness",        "lat": 39.956787,        "lng": -105.621758,        "icon": "boundary",        "description": "This is a POI!"    },
-    {        "name": "Pass",        "lat": 39.966572,        "lng": -105.688418,        "icon": "pass",        "description": "This is a POI!"    }
+[   
+    {        
+        "name": "High Lonesome Loop Start and Finish",        
+        "lat": 39.951535, 
+        "lng": -105.594934,        
+        "icon": "startfinish",        
+        "description": "Hessie Trailhead is the start and finish for the route. You can take the bus from Nederland Highschool ",
+        "image": ""    
+    }, 
+    {        
+        "name": "Indian Peaks Wilderness",        
+        "lat": 39.956787,        
+        "lng": -105.621758,        
+        "icon": "boundary",        
+        "description": "This is a Wilderness border. <br><br>For counter-clockwise travelers you are entering Indian Peaks Wilderness area. Watch for moose and prepare for five miles of consistent uphill until you reach the pass signifying the continental divide.<br><br>For clockwise travelers this marks the home stretch. Try not to roll your ankles on the last mile of gravel road leading up to Hessie trailhead (finish).",
+        "image": "./Tracks/High_Lonesome_Loop/Indian_Peaks_Wilderness.jpg"    
+    },
+    {        
+        "name": "Pass",        
+        "lat": 39.966572,        
+        "lng": -105.688418,        
+        "icon": "pass",        
+        "description": "This pass between Skyscraper peak and an unnamed peak marks a major landmark on the loop and a good place to enjoy the view.<br><br>For counter-clockwise there is about a half mile of steep non-technical ascent to gain the pass. While you are not done with the uphill the majority of it is complete.<br><br> For clockwise travelers this is the last time you are on the continental divide and it is practically all downhill from here.",
+        "image": "./Tracks/High_Lonesome_Loop/pass.jpg"    
+    }
 ]
