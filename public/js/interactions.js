@@ -39,9 +39,11 @@ function updatePopupContent(popup, geojson, nearestPoint, direction, track) {
 
     // Attach an event listener to the direction toggle within the popup
     const directionToggle = document.getElementById('directionToggle');
+    
     if (directionToggle) {
         // Define the update function for direction changes
         function updateDirection() {
+            console.log('v: ', this.value);
             track.selectedDirection = this.value; // Update the track's selected direction
             // Update the popup content again when the direction changes
             updatePopupContent(popup, geojson, nearestPoint, track.selectedDirection, track);
@@ -52,8 +54,10 @@ function updatePopupContent(popup, geojson, nearestPoint, direction, track) {
 
         // Attach the event listener
         directionToggle.addEventListener('change', updateDirection);
+        
     }
 }
+
 
 // Function to handle loop routes with distance and elevation calculation
 function addLoopRouteInteraction(layerId, geojson, track, totalDistance, totalElevationGain) {
@@ -73,7 +77,7 @@ function addLoopRouteInteraction(layerId, geojson, track, totalDistance, totalEl
             .setLngLat(e.lngLat)
             .setHTML('') // Initialize with empty content
             .addTo(map);
-
+        
         updatePopupContent(popup, geojson, nearestPoint, track.selectedDirection, track);
 
         const popupEntry = {
