@@ -1,0 +1,19 @@
+[   
+    {        
+        "name": "Green Mountian via 1st Flatiron start/finish",        
+        "lat": 39.998810, 
+        "lng": -105.282902,  
+        "icon": "flag",        
+        "description": "<br><br> A 6 mile out and back from Chautauqua park. The parking lot is free except for on summer Weekends and holidays. If the lot is full, parking is available in the neighborhoods nearby. <br><br>More information on the trails and the park can be found <a href='https://bouldercolorado.gov/trailhead/chautauqua' target='_blank'>here</a>",
+        "image": ""    
+    }, 
+    { 
+        "name": "Summit", 
+        "lat": 39.982168, 
+        "lng": -105.301554, 
+        "icon": "summit", 
+        "description": "Green Mountain Summit<br><br> There is a plaque on the summit which labels the surrounding mountains, there are also many spots to take a break just beneath the summit area. Many hikers choose to take a different route down to their car, just be sure to check maps on your phone or occasionally on posted signs.",
+        "image": "./Tracks/Mount_Audubon_Ascent/Audubon_Summit.jpg"
+    }
+
+]
