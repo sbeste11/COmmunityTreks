@@ -21,12 +21,12 @@ body {
     position: fixed;
     top: 20px; /* Adjust the distance from the top */
     left: 20px; /* Adjust the distance from the left */
-    z-index: 1000; /* Make sure it stays above the map */
+    z-index: 10000; /* Make sure it stays above the map */
     background-color: rgba(255, 255, 255, 0.8); /* Optional: add a slight background for contrast */
     border-radius: 5px; /* Optional: add a border radius for a rounded effect */
     padding: 5px; /* Add padding around the logo */
-    width: auto; /* Ensure the width adjusts to the content */
-    max-width: 100px; /* Set a maximum width to prevent the logo from being too large */
+    width: 100px; /* Ensure the width adjusts to the content */
+    max-width: 1000px; /* Set a maximum width to prevent the logo from being too large */
 }
 
 /* Logo image styling */
