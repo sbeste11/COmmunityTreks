@@ -46,6 +46,6 @@ function loadPOIIcons() {
         if (error) throw error;
         if (!map.hasImage('flag')) {
             map.addImage('flag', image);
-        }3
+        }
     });
 }
