@@ -11,7 +11,7 @@
         "name": "Flatiron view", 
         "lat": 39.989708, 
         "lng": -105.294224, 
-        "icon": "summit", 
+        "icon": "wilderness", 
         "description": "Just after you pass between the 1st and 2nd flatiron, looking south there is an excellent view of the other flatirons.",
         "image": "./Tracks/Green_Mtn_via_1st_Flatiron/Flatiron_view.jpg"
     },
@@ -19,7 +19,7 @@
         "name": "First flatiron saddle", 
         "lat": 39.990030, 
         "lng": -105.295024, 
-        "icon": "summit", 
+        "icon": "wilderness", 
         "description": "A saddle next to the summit of the 1st flatiron. This is a great place to stop if you don't want to push all the way to the summit.",
         "image": "./Tracks/Green_Mtn_via_1st_Flatiron/1st_flatiron.jpg"
     },

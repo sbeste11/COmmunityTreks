@@ -8,90 +8,71 @@ body {
 /* Style the map container */
 #map {
     position: absolute;
-    top: 0px; /* Adjust height of menu bar */
+    top: 0px;
     bottom: 0;
     width: 100%;
     z-index: 1;
 }
 
-
-/* ----------------- BEGIN LOGO OPTIONS -----------------*/
-/* Logo container styling */
+/* ----------------- BEGIN LOGO OPTIONS ----------------- */
 #logo-container {
     position: fixed;
-    top: 20px; /* Adjust the distance from the top */
-    left: 20px; /* Adjust the distance from the left */
-    z-index: 10000; /* Make sure it stays above the map */
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: add a slight background for contrast */
-    border-radius: 5px; /* Optional: add a border radius for a rounded effect */
-    padding: 5px; /* Add padding around the logo */
-    width: 100px; /* Ensure the width adjusts to the content */
-    max-width: 1000px; /* Set a maximum width to prevent the logo from being too large */
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    padding: 5px;
+    width: 100px;
+    max-width: 1000px;
 }
 
-/* Logo image styling */
 #logo-container img {
-    width: 100%; /* Make the image fill the container width */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 100%; /* Make sure the image does not exceed the container’s width */
-    cursor: pointer; /* Make it clear the logo is clickable */
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    cursor: pointer;
 }
 
+/* ----------------- END LOGO OPTIONS ----------------- */
 
-/* ----------------- END LOGO OPTIONS -----------------*/
-
-
-
-/* ----------------- BEGIN toggles -----------------*/
-
-/* Toggle bar styling */
+/* ----------------- BEGIN toggles ----------------- */
 #toggles-bar {
     position: absolute;
-    top: 10px; /* Adjust this to position the toggle bar */
+    top: 10px;
     right: 10px;
     z-index: 1000;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the left */
-    padding: 15px; /* Add padding to expand the background around the content */
-    background-color: rgba(0, 0, 0, 0.8); /* Background with slight transparency */
-    border-radius: 5px; /* Rounded corners */
-    width: auto; /* Adjusts based on content */
-    box-sizing: border-box; /* Includes padding in the element's width and height */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    width: auto;
+    box-sizing: border-box;
 }
 
-/* General styling for toggle containers */
 #toggles-bar div {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Space between switches */
-    width: 100%; /* Ensures each toggle container takes full width of the parent */
+    margin-bottom: 10px;
+    width: 100%;
 }
 
-/* Remove absolute positioning from individual toggle containers */
-#color-toggle {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-/* Uniform styling for switches */
 .switch {
     position: relative;
     display: inline-block;
-    width: 50px;  /* Fixed width */
-    height: 24px; /* Fixed height */
-    margin-right: 10px; /* Space between the switch and the label */
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
 }
 
-/* Hide the checkbox */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* Slider for the switch */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -104,7 +85,6 @@ body {
     border-radius: 24px;
 }
 
-/* Thumb inside the switch */
 .slider:before {
     position: absolute;
     content: "";
@@ -125,24 +105,20 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Label styling */
 #unitLabel, #colorModeLabel {
     font-size: 16px;
     color: white;
 }
 
-/* ----------------- END KM/MI toggle -----------------*/
+/* ----------------- END toggles ----------------- */
 
-/* ----------------- BEGIN dropdown mapstyle -----------------*/
-
-/* Dropdown styling */
+/* ----------------- BEGIN dropdown mapstyle ----------------- */
 #map-style-toggle {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Space between the elements */
+    margin-bottom: 10px;
 }
 
-/* Style the dropdown */
 #mapStyleSelect {
     margin-left: 10px;
     padding: 5px;
@@ -152,4 +128,94 @@ input:checked + .slider:before {
     border: none;
 }
 
-/* ----------------- END dropdown mapstyle -----------------*/
+/* ----------------- END dropdown mapstyle ----------------- */
+
+/* ----------------- About and donate button container ----------------- */
+#button-container {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    top: 20px;
+    left: 150px;
+    z-index: 10001;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #555;
+}
+
+.nav-button:active {
+    background-color: #111;
+}
+
+/* ----------------- RESPONSIVE STYLES ----------------- */
+@media (max-width: 768px) {
+    #logo-container {
+        top: 10px;
+        left: 10px;
+        width: 80px;
+    }
+
+    #button-container {
+        flex-direction: column;
+        top: 100px; /* Adjust position below logo */
+        left: 10px; /* Align with logo */
+    }
+
+    .nav-button {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    #toggles-bar {
+        top: 20px;
+        right: 10px;
+        padding: 10px;
+    }
+
+    #toggles-bar div {
+        margin-bottom: 5px;
+    }
+
+    #mapStyleSelect {
+        padding: 3px;
+        font-size: 14px;
+    }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+    #logo-container {
+        width: 60px;
+    }
+
+    #button-container {
+        top: 80px;
+    }
+
+    .nav-button {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    #toggles-bar {
+        top: 10px;
+        padding: 8px;
+    }
+
+    #mapStyleSelect {
+        font-size: 12px;
+    }
+}
