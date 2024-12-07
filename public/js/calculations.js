@@ -145,10 +145,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update all active popups
     function updateAllPopups() {
         // Iterate through the popupdata array and update each popup
-        popupdata.forEach(popupEntry => {
-            popupEntry.updateContent();
+        popupdata.forEach((popupEntry) => {
+            if (popupEntry && popupEntry.track && popupEntry.geojson) {
+                const { popup, geojson, track, nearestPoint } = popupEntry;
+    
+                // Use a default direction if none is set
+                const direction = track.selectedDirection || 'clockwise';
+    
+                // Ensure the popup exists before attempting to update
+                if (popup) {
+                    updatePopupContent(popup, geojson, nearestPoint, direction, track);
+                }
+            } else {
+                console.error("Invalid popupEntry found in popupdata:", popupEntry);
+            }
         });
     }
+    
+    
 });
 
 

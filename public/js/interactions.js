@@ -1,62 +1,135 @@
 // Function to handle direct or out-and-back routes
-function addNonLoopRouteInteraction(layerId, geojson, track, distance, totalElevationGain) {
+function addOutAndBackRouteInteraction(layerId, geojson, track, totalDistance, totalElevationGain) {
     map.off('click', layerId);
 
     map.on('click', layerId, function (e) {
+        // Find the nearest point on the route to the clicked location
+        const clickedPoint = turf.point([e.lngLat.lng, e.lngLat.lat]);
+        const nearestPoint = turf.nearestPointOnLine(geojson.features[0], clickedPoint, { units: 'kilometers' });
+        const nearestIndex = nearestPoint.properties.index;
+
+        const coordinates = geojson.features[0].geometry.coordinates;
+
+        let forwardDistance = 0;
+        let forwardElevationGain = 0;
+
+        // Calculate forward distance and elevation gain
+        for (let i = 0; i <= nearestIndex; i++) {
+            if (i > 0) {
+                const segmentDistance = turf.distance(turf.point(coordinates[i - 1]), turf.point(coordinates[i]), { units: 'kilometers' });
+                forwardDistance += segmentDistance;
+
+                const elevationDiff = coordinates[i][2] - coordinates[i - 1][2];
+                if (elevationDiff > 0) {
+                    forwardElevationGain += elevationDiff;
+                }
+            }
+        }
+
+        // Total distance and elevation gain for out-and-back
+        const outAndBackDistance = forwardDistance * 2;
+        const outAndBackElevationGain = forwardElevationGain * 2;
+
+        const popupContent = `
+            <strong>${track.name}</strong><br>
+            Distance to Point: ${convertDistance(outAndBackDistance)}<br>
+            Elevation Gain: ${convertElevation(outAndBackElevationGain)}
+        `;
+
         const popup = new mapboxgl.Popup()
             .setLngLat(e.lngLat)
-            .setHTML(`<strong>${track.url}</strong><br>Distance: ${convertDistance(distance)}<br>Elevation Gain: ${convertElevation(totalElevationGain)}`)
+            .setHTML(popupContent)
             .addTo(map);
 
-        popupdata.push({ popup, geojson, distance, totalElevationGain });
+        popupdata.push({ popup, geojson, track, outAndBackDistance, outAndBackElevationGain });
+
+        popup.on('close', function () {
+            const index = popupdata.findIndex(p => p.popup === popup);
+            if (index !== -1) {
+                popupdata.splice(index, 1);
+            }
+        });
     });
 }
 
+
 // Function to update popups when the unit toggle is switched
 function updatePopupContent(popup, geojson, nearestPoint, direction, track) {
-    // Calculate the distance and elevation based on the direction and the current unit preference
-    const { distanceToPoint, elevationToPoint } = calculateDistanceAndElevation(geojson, nearestPoint, track.selectedDirection);
+    // Check if this is a loop or direct (out-and-back) route
+    if (track.type === 'loop') {
+        // For loop routes, calculate distance and elevation gain to the nearest point
+        const { distanceToPoint, elevationToPoint } = calculateDistanceAndElevation(
+            geojson,
+            nearestPoint,
+            direction
+        );
 
-    // Convert the distance and elevation to the appropriate unit
-    const convertedDistance = convertDistance(distanceToPoint);
-    const convertedElevation = convertElevation(elevationToPoint);
+        // Convert the values to the currently selected unit
+        const convertedDistance = convertDistance(distanceToPoint);
+        const convertedElevation = convertElevation(elevationToPoint);
 
-    // Generate the popup content
-    const popupContent = `
-        <strong>Route Information</strong><br>
-        Distance to Point: ${convertedDistance}<br>
-        Elevation Gain to Point: ${convertedElevation}<br>
-        <label>Direction: 
-            <select id="directionToggle">
-                <option value="clockwise" ${track.selectedDirection === 'clockwise' ? 'selected' : ''}>Clockwise</option>
-                <option value="counterclockwise" ${track.selectedDirection === 'counterclockwise' ? 'selected' : ''}>Counterclockwise</option>
-            </select>
-        </label>
-    `;
+        // Update popup content for loop routes
+        const popupContent = `
+            <strong>${track.name}</strong><br>
+            Distance to Point: ${convertedDistance}<br>
+            Elevation Gain to Point: ${convertedElevation}<br>
+            <label>Direction: 
+                <select id="directionToggle">
+                    <option value="clockwise" ${direction === 'clockwise' ? 'selected' : ''}>Clockwise</option>
+                    <option value="counterclockwise" ${direction === 'counterclockwise' ? 'selected' : ''}>Counterclockwise</option>
+                </select>
+            </label>
+        `;
 
-    // Set the popup HTML content
-    popup.setHTML(popupContent);
+        popup.setHTML(popupContent);
 
-    // Attach an event listener to the direction toggle within the popup
-    const directionToggle = document.getElementById('directionToggle');
-    
-    if (directionToggle) {
-        // Define the update function for direction changes
-        function updateDirection() {
-            console.log('v: ', this.value);
-            track.selectedDirection = this.value; // Update the track's selected direction
-            // Update the popup content again when the direction changes
-            updatePopupContent(popup, geojson, nearestPoint, track.selectedDirection, track);
+        // Add the event listener for direction toggle
+        const directionToggle = document.getElementById('directionToggle');
+        if (directionToggle) {
+            directionToggle.addEventListener('change', function () {
+                track.selectedDirection = this.value; // Update the track's direction
+                updatePopupContent(popup, geojson, nearestPoint, track.selectedDirection, track); // Refresh popup
+            });
         }
 
-        // Remove any existing event listener before adding a new one
-        directionToggle.removeEventListener('change', updateDirection);
+    } else if (track.type === 'direct') {
+        // For direct (out-and-back) routes, calculate the total out-and-back distance and elevation gain
+        const coordinates = geojson.features[0].geometry.coordinates;
 
-        // Attach the event listener
-        directionToggle.addEventListener('change', updateDirection);
-        
+        let forwardDistance = 0;
+        let forwardElevationGain = 0;
+
+        for (let i = 1; i < coordinates.length; i++) {
+            const segmentDistance = turf.distance(
+                turf.point(coordinates[i - 1]),
+                turf.point(coordinates[i]),
+                { units: 'kilometers' }
+            );
+            forwardDistance += segmentDistance;
+
+            const elevationDiff = coordinates[i][2] - coordinates[i - 1][2];
+            if (elevationDiff > 0) {
+                forwardElevationGain += elevationDiff;
+            }
+        }
+
+        const outAndBackDistance = forwardDistance * 2;
+        const outAndBackElevationGain = forwardElevationGain * 2;
+
+        const convertedDistance = convertDistance(outAndBackDistance);
+        const convertedElevation = convertElevation(outAndBackElevationGain);
+
+        // Update popup content for direct routes
+        const popupContent = `
+            <strong>${track.name}</strong><br>
+            Distance to point: ${convertedDistance}<br>
+            Elevation Gain to point: ${convertedElevation}
+        `;
+
+        popup.setHTML(popupContent);
     }
 }
+
 
 
 // Function to handle loop routes with distance and elevation calculation

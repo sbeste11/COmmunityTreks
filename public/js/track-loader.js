@@ -125,8 +125,10 @@ function loadGPXTracksWithPOIs(tracks, index) {
                 if (track.type === 'loop') {
                     addLoopRouteInteraction(layerId, geojson, track, distance, totalElevationGain);
                 } else {
-                    addNonLoopRouteInteraction(layerId, geojson, track, distance, totalElevationGain);
+
+                    addOutAndBackRouteInteraction(layerId, geojson, track, distance, totalElevationGain);
                 }
+                
 
                 // Store the popup instance and its update function for future updates
                 const popupEntry = {
