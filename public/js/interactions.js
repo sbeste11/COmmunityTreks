@@ -27,8 +27,8 @@ function addOutAndBackRouteInteraction(layerId, geojson, track, totalDistance, t
         }
 
         // Total distance and elevation gain for out-and-back
-        const outAndBackDistance = forwardDistance * 2;
-        const outAndBackElevationGain = forwardElevationGain * 2;
+        const outAndBackDistance = forwardDistance;
+        const outAndBackElevationGain = forwardElevationGain;
 
         const popupContent = `
             <strong>${track.name}</strong><br>
