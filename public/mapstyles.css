@@ -132,12 +132,10 @@ input:checked + .slider:before {
 
 /* ----------------- About and donate button container ----------------- */
 #button-container {
-    position: absolute;
     display: flex;
-    gap: 10px;
-    top: 20px;
-    left: 150px;
-    z-index: 10001;
+    position: relative;
+    margin-left: 150px;
+    margin-top: -25px;
 }
 
 .nav-button {
@@ -161,7 +159,7 @@ input:checked + .slider:before {
 }
 
 /* ----------------- RESPONSIVE STYLES ----------------- */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     #logo-container {
         top: 10px;
         left: 10px;
@@ -169,9 +167,14 @@ input:checked + .slider:before {
     }
 
     #button-container {
-        flex-direction: column;
-        top: 100px; /* Adjust position below logo */
-        left: 10px; /* Align with logo */
+        position: fixed !important; /* Ensure the buttons are fixed at the bottom */
+        bottom: 10px !important; /* Position at the bottom of the screen */
+        max-height: 25px;
+        left: 40%;  /* Center horizontally */
+        transform: translateX(-150%); /* Center alignment adjustment */
+        gap: 20px; /* Space between the buttons */
+        flex-direction: row; /* Keep the buttons side by side */
+        justify-content: center;
     }
 
     .nav-button {
@@ -195,14 +198,14 @@ input:checked + .slider:before {
     }
 }
 
-/* Adjustments for very small screens */
 @media (max-width: 480px) {
     #logo-container {
         width: 60px;
     }
 
     #button-container {
-        top: 80px;
+        bottom: 5px; /* Slightly closer to the edge for very small screens */
+        gap: 15px; /* Reduce gap between buttons */
     }
 
     .nav-button {
