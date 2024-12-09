@@ -1,0 +1,225 @@
+/* Reset margin and padding */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the map container */
+#map {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+/* ----------------- BEGIN LOGO OPTIONS ----------------- */
+#logo-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    padding: 5px;
+    width: 100px;
+    max-width: 1000px;
+}
+
+#logo-container img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+/* ----------------- END LOGO OPTIONS ----------------- */
+
+/* ----------------- BEGIN toggles ----------------- */
+#toggles-bar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    width: auto;
+    box-sizing: border-box;
+}
+
+#toggles-bar div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #000000;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+#unitLabel, #colorModeLabel {
+    font-size: 16px;
+    color: white;
+}
+
+/* ----------------- END toggles ----------------- */
+
+/* ----------------- BEGIN dropdown mapstyle ----------------- */
+#map-style-toggle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#mapStyleSelect {
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+}
+
+/* ----------------- END dropdown mapstyle ----------------- */
+
+/* ----------------- About and donate button container ----------------- */
+#button-container {
+    display: flex;
+    position: relative;
+    gap: 20px; /* Space between the buttons */
+    margin-left: 125px;
+    margin-top: -25px;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #555;
+}
+
+.nav-button:active {
+    background-color: #111;
+}
+
+/* ----------------- RESPONSIVE STYLES ----------------- */
+@media screen and (max-width: 768px) {
+    #logo-container {
+        top: 10px;
+        left: 10px;
+        width: 80px;
+    }
+
+    #button-container {
+        position: fixed !important; /* Ensure the buttons are fixed at the bottom */
+        bottom: 10px !important; /* Position at the bottom of the screen */
+        max-height: 25px;
+        left: 40%;  /* Center horizontally */
+        transform: translateX(-120%); /* Center alignment adjustment */
+        gap: 20px; /* Space between the buttons */
+        flex-direction: row; /* Keep the buttons side by side */
+        justify-content: center;
+    }
+
+    .nav-button {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    #toggles-bar {
+        top: 20px;
+        right: 10px;
+        padding: 10px;
+    }
+
+    #toggles-bar div {
+        margin-bottom: 5px;
+    }
+
+    #mapStyleSelect {
+        padding: 3px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #logo-container {
+        width: 60px;
+    }
+
+    #button-container {
+        bottom: 5px; /* Slightly closer to the edge for very small screens */
+        gap: 15px; /* Reduce gap between buttons */
+    }
+
+    .nav-button {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    #toggles-bar {
+        top: 10px;
+        padding: 8px;
+    }
+
+    #mapStyleSelect {
+        font-size: 12px;
+    }
+}
