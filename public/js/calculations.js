@@ -80,8 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Set expiration time (30 minutes)
     const expirationTime = 30 * 60 * 1000; // 30 minutes in milliseconds
 
-    // Load stored preferences if available and still valid
-    loadPreferences();
+    // Wait for the map to be initialized
+    const waitForMap = setInterval(() => {
+        if (window.map) {
+            clearInterval(waitForMap); // Stop checking once the map is initialized
+            console.log('Map is initialized. Loading preferences...');
+            loadPreferences(); // Safely load preferences after map is ready
+        }
+    }, 100); // Check every 100ms
 
     // Event listener for the unit switch
     unitSwitch.addEventListener('change', function () {
@@ -181,6 +187,11 @@ function updateToggleBarStyle(backgroundColor, textColor) {
 
 
 function applyMapStyle(style) {
+    if (!map) {
+        console.error('Map is not initialized');
+        return;
+    }
+
     switch (style) {
         case 'light':
             map.setStyle('mapbox://styles/mapbox/light-v10');

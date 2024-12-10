@@ -48,4 +48,11 @@ function loadPOIIcons() {
             map.addImage('flag', image);
         }
     });
+
+    map.loadImage('./Images/junction.png', function (error, image) {
+        if (error) throw error;
+        if (!map.hasImage('junction')) {
+            map.addImage('junction', image);
+        }
+    });
 }

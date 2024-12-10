@@ -173,11 +173,21 @@ function loadGPXTracksWithPOIs(tracks, index) {
 }
 
 
-// Load multiple GPX files
-map.on('load', function () {
+// Function to load all GPX tracks and their POIs
+function loadGPXTracks() {
+    if (!map) {
+        console.error('Map is not initialized');
+        return;
+    }
+
     // Fetch the tracks from the JSON file
     fetch('Tracks/tracks.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch tracks.json: ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(tracks => {
             // Use Promise.all to load POIs for all tracks before processing them
             return Promise.all(
@@ -196,4 +206,5 @@ map.on('load', function () {
             });
         })
         .catch(error => console.error('Error loading tracks file:', error));
-});
+}
+

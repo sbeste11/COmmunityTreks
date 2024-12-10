@@ -5,20 +5,24 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, 'frontend')));
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Backend endpoint (e.g., Mapbox token)
+// API route to provide the Mapbox token
 app.get('/mapbox-token', (req, res) => {
-    res.json({ accessToken: process.env.MAPBOX_ACCESS_TOKEN });
+    const mapboxToken = process.env.MAPBOX_ACCESS_TOKEN; // Fetch token from Config Vars
+    if (!mapboxToken) {
+        return res.status(500).json({ error: 'Mapbox token is not configured' });
+    }
+    res.json({ accessToken: mapboxToken });
 });
 
-// Serve the frontend's `index.html` file for any other routes
+// Catch-all route to serve the frontend's index.html for any unmatched routes
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'map.html'));
+    res.sendFile(path.join(__dirname, '../public', 'map.html'));
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
