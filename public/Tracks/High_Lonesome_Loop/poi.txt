@@ -8,6 +8,14 @@
         "image": ""    
     }, 
     {        
+        "name": "Trail Junction",        
+        "lat": 39.955492,        
+        "lng": -105.613046,        
+        "icon": "junction",        
+        "description": "If going clockwise, turn left and cross the bridge at the junction. Counter-clockwise continue straight.",
+        "image": ""    
+    },
+    {        
         "name": "Indian Peaks Wilderness",        
         "lat": 39.956787,        
         "lng": -105.621758,        

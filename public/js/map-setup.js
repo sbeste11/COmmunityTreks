@@ -37,3 +37,8 @@ map.loadImage('./Images/flag.png', function (error, image) {
     if (error) throw error;
     map.addImage('flag', image);
 });
+
+map.loadImage('./Images/junction.png', function (error, image) {
+    if (error) throw error;
+    map.addImage('junction', image);
+});
