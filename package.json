@@ -2,7 +2,7 @@
   "name": "community-treks",
   "version": "1.0.0",
   "description": "Community-based trail mapping web application",
-  "main": "server.js",
+  "main": "./backend/server.js",
   "scripts": {
     "start": "node server.js",
     "build": "webpack",
