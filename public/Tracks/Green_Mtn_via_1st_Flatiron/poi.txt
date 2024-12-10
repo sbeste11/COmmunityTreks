@@ -4,7 +4,7 @@
         "lat": 39.998810, 
         "lng": -105.282902,  
         "icon": "flag",        
-        "description": "<br><br> A 6 mile out and back from Chautauqua park. The parking lot is free except for on summer Weekends and holidays. If the lot is full, parking is available in the neighborhoods nearby. The trail up to the first flatiron saddle is well trafficed during busy times, but provides a rewarding route to the summit.<br><br>More information on the trails and the park can be found <a href='https://bouldercolorado.gov/trailhead/chautauqua' target='_blank'>here</a>",
+        "description": "<br><br> A 6 mile out and back from Chautauqua park. The parking lot is free except for on summer Weekends and holidays. If the lot is full, parking is available in the neighborhoods nearby. The trail up to the first flatiron saddle is well trafficed during busy times, but provides a rewarding route to the summit.<br><br>More information on the trails and the park can be found <a href='https://bouldercolorado.gov/trailhead/chautauqua' target='_blank' rel='noopener noreferrer'>here</a>",
         "image": ""    
     }, 
     { 
