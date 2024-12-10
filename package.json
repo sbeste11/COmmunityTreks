@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./backend/server.js",
     "build": "webpack",
-    "test": "echo \"No tests specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "webpack",
@@ -21,7 +21,8 @@
     "@turf/turf": "^7.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "express-rate-limit": "^7.4.1"
+    "express-rate-limit": "^7.4.1",
+    "jest": "^29.7.0"
   },
   "devDependencies": {
     "esbuild": "^0.18.10",
