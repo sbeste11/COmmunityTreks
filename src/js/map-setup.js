@@ -173,7 +173,8 @@ function loadGPXTracksWithPOIs(tracks, index) {
                             "name": poi.name,
                             "icon": poi.icon,
                             "description": poi.description,
-                            "image": poi.image
+                            "image": poi.image,
+                            "weight": getPriorityForIcon(poi.icon) // Assign weight based on the icon
                         }
                     }));
 
@@ -198,7 +199,8 @@ function loadGPXTracksWithPOIs(tracks, index) {
                             'text-field': ['get', 'name'],
                             'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
                             'text-offset': [0, 1],
-                            'text-anchor': 'top'
+                            'text-anchor': 'top',
+                            'symbol-sort-key': ['get', 'weight'] // Use the weight property for sorting
                         },
                         'paint': {
                             'text-color': '#666666', // Set the text color for the POI labels
@@ -318,6 +320,18 @@ function loadPOIs(trackUrl) {
             console.error('Error loading POI file:', error);
             return [];
         });
+}
+
+// Helper function to assign priority based on icon type
+function getPriorityForIcon(icon) {
+    const priorityMap = {
+        flag: 100, 
+        summit: 100, 
+        boundary: 50,
+        pass: 40,
+        junction: 10 
+    };
+    return priorityMap[icon] || 0; // Default to 0 if the icon is not in the map
 }
 
 
