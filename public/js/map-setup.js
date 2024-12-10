@@ -1,5 +1,17 @@
 // mapbox accessToken 
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2Jlc3RlIiwiYSI6ImNtMXRrMXJkZDAzNHIybG9odnR4aGg5YnUifQ.lbICz6C0vlvvIMNMEV8frw';
+fetch('https://your-app-name.herokuapp.com/mapbox-token')
+    .then(response => response.json())
+    .then(data => {
+        mapboxgl.accessToken = data.accessToken;
+        const map = new mapboxgl.Map({
+            container: 'map',
+            center: [-105.6129, 39.99366],
+            zoom: 10,
+            style: 'mapbox://styles/mapbox/outdoors-v12'
+        });
+    })
+    .catch(error => console.error('Error fetching Mapbox access token:', error));
+
 
 // creation of map
 const map = new mapboxgl.Map({
