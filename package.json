@@ -4,7 +4,7 @@
   "description": "Community-based trail mapping web application",
   "main": "./backend/server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./backend/server.js",
     "build": "webpack",
     "test": "echo \"No tests specified\" && exit 1"
   },
