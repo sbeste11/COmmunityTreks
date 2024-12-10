@@ -4,7 +4,7 @@
         "lat": 39.954819, 
         "lng": -105.602767,  
         "icon": "flag",        
-        "description": "Hessie Trailhead is the start and finish for the route. You can take the bus from Nederland Highschool.<br><br> Route distance: 14.5 mi <br> Elevation gain: 3300 ft<br><br> <a href='https://bouldercounty.gov/open-space/parks-and-trails/hessie-trailhead/' target='_blank'>Bus info</a> <br><br> <a href='https://www.fs.usda.gov/recarea/arp/recarea/?recid=80803' target='_blank'>Backpacking info</a>",
+        "description": "Hessie Trailhead is the start and finish for the route. You can take the bus from Nederland Highschool.<br><br> Route distance: 14.5 mi <br> Elevation gain: 3300 ft<br><br> <a href='https://bouldercounty.gov/open-space/parks-and-trails/hessie-trailhead/' target='_blank' rel='noopener noreferrer'>Bus info</a> <br><br> <a href='https://www.fs.usda.gov/recarea/arp/recarea/?recid=80803' target='_blank' rel='noopener noreferrer'>Backpacking info</a>",
         "image": ""    
     }, 
     {        

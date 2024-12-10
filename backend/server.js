@@ -1,3 +1,4 @@
+const helmet = require('helmet');
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
@@ -5,8 +6,40 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Helmet with custom CSP configuration
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"], // Only allow content from the same origin
+            scriptSrc: [
+                "'self'",
+                "https://www.googletagmanager.com", // Allow Google Tag Manager
+                "https://api.mapbox.com", // Allow Mapbox scripts
+                "https://events.mapbox.com", // allow mapbox events
+                "https://cdnjs.cloudflare.com",
+                // "'unsafe-inline'" // Required for some dynamically inserted scripts, but should be avoided if possible
+            ],
+            styleSrc: [
+                "'self'",
+                "https://api.mapbox.com", // Allow Mapbox styles
+                // "'unsafe-inline'" // Needed for inline styles, use sparingly
+            ],
+            connectSrc: [
+                "'self'",
+                "https://api.mapbox.com",
+                "https://events.mapbox.com"
+            ],
+            workerSrc: ["'self'", "blob:"], // Allow blob URLs for workers
+            objectSrc: ["'none'"], // Disallow <object> and <embed>
+            frameSrc: ["'none'"], // Block all iframes unless explicitly needed
+            fontSrc: ["'self'"], // Allow fonts only from the same origin
+        },
+    })
+);
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, '../public')));
+// app.use(express.static('public'));
 
 // Endpoint to fetch the Google Tag ID
 app.get('/google-tag', (req, res) => {
@@ -25,6 +58,11 @@ app.get('/mapbox-token', (req, res) => {
         return res.status(500).json({ error: 'Mapbox token is not configured' });
     }
     res.json({ accessToken: mapboxToken });
+});
+
+// Explicitly handle requests for specific static files
+app.get('/js/bundle.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'js', 'bundle.js'));
 });
 
 // Catch-all route to serve the frontend's index.html for any unmatched routes
