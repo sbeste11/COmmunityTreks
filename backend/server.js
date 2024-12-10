@@ -1,10 +1,22 @@
-const helmet = require('helmet');
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: {
+        error: 'Too many requests from this IP, please try again after 15 minutes.'
+    },
+});
+
+// Apply the rate limiter to all requests
+app.use(limiter);
 
 // Helmet with custom CSP configuration
 app.use(
