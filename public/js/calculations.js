@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const waitForMap = setInterval(() => {
         if (window.map) {
             clearInterval(waitForMap); // Stop checking once the map is initialized
-            console.log('Map is initialized. Loading preferences...');
             loadPreferences(); // Safely load preferences after map is ready
         }
     }, 100); // Check every 100ms
