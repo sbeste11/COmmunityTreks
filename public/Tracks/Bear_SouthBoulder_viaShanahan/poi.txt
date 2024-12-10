@@ -1,0 +1,67 @@
+[   
+    {        
+        "name": "Bear and South Boulder peak via Shanahan Ridge Trailhead",        
+        "lat": 39.968654, 
+        "lng": -105.263171,  
+        "icon": "flag",        
+        "description": "<br><br> A 6.2 mile out and back from Shanahan Ridge Trailhead. Parking is free in the neighborhood but can fill up during busy times. Plenty of alternate trailheads nearby if this one is full.",
+        "image": ""    
+    }, 
+    {        
+        "name": "Trail Junction",        
+        "lat": 39.967640,        
+        "lng": -105.267484,        
+        "icon": "junction",        
+        "description": "Keep right at the junction.",
+        "image": ""    
+    },
+    {        
+        "name": "Trail Junction",        
+        "lat": 39.966348,        
+        "lng": -105.270355,        
+        "icon": "junction",        
+        "description": "Keep right at the junction.",
+        "image": ""    
+    },
+    {        
+        "name": "Trail Junction",        
+        "lat": 39.964536,        
+        "lng": -105.281052,        
+        "icon": "junction",        
+        "description": "Continue straight at the junction.",
+        "image": ""    
+    },
+    {        
+        "name": "Trail Junction",        
+        "lat": 39.965491,        
+        "lng": -105.285455,        
+        "icon": "junction",        
+        "description": "Keep left at the junction.",
+        "image": ""    
+    },
+    {        
+        "name": "Saddle",        
+        "lat": 39.965690,        
+        "lng": -105.292064,        
+        "icon": "pass",        
+        "description": "",
+        "image": "fern_saddle"    
+    },
+    { 
+        "name": "Summit", 
+        "lat": 39.960157, 
+        "lng": -105.295179, 
+        "icon": "summit", 
+        "description": "Bear Peak summit<br><br> The last 20 feet to the top is a bit of a scramble, make sure to have proper traction if there is ice.",
+        "image": "./Tracks/Bear_SouthBoulder_viaShanahan/bear_summit.jpg"
+    },
+    { 
+        "name": "Summit", 
+        "lat": 39.953873, 
+        "lng": -105.299159, 
+        "icon": "summit", 
+        "description": "South Boulder Peak summit<br><br> Soak in the 360 degree views on top of South Boulder peak. Depending on the season there may be wild rasberries near the summit, eat at your own risk.",
+        "image": "./Tracks/Bear_SouthBoulder_viaShanahan/sobo_summit.jpg"
+    }
+
+]
