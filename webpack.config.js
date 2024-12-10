@@ -8,7 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'public/js'),
     },
     mode: 'production',
-    devtool: 'source-map',
+    // devtool: 'source-map', reveal js in developer mode
     module: {
         rules: [
             {
