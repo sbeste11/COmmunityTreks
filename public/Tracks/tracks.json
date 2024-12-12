@@ -2,20 +2,24 @@
     {
         "url": "Tracks/High_Lonesome_Loop/High_Lonesome_Loop.gpx",
         "type": "loop",
+        "color": "#c3002f",
         "defaultDirection": "counterclockwise",
         "selectedDirection": "counterclockwise"
     },
     {
         "url": "Tracks/Mount_Audubon_Ascent/Mount_Audubon_Ascent.gpx",
-        "type": "direct"
+        "type": "direct",
+        "color": "#c3002f"
     },
     {
         "url": "Tracks/Green_Mtn_via_1st_Flatiron/Green_Mtn_via_1st_Flatiron.gpx",
-        "type": "direct"
+        "type": "direct",
+        "color": "#c3002f"
     },
     {
         "url": "Tracks/Bear_SouthBoulder_viaShanahan/Bear_SouthBoulder_viaShanahan.gpx",
-        "type": "direct"
+        "type": "direct",
+        "color": "#c3002f"
     }
 ]
 

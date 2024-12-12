@@ -9,9 +9,9 @@ import { popupdata } from './map-setup.js'
 
 
 // Function to handle direct or out-and-back routes
-function addOutAndBackRouteInteraction(mainMap, layerId, geojson, track, totalDistance, totalElevationGain) {
-    mainMap.off('click', layerId);
-    mainMap.off('touchstart', layerId);
+function addOutAndBackRouteInteraction(mainMap, layerId, interactionLayerId, geojson, track, totalDistance, totalElevationGain) {
+    mainMap.off('click', interactionLayerId);
+    mainMap.off('touchstart', interactionLayerId);
 
     function handleInteraction (e) {
         // Find the nearest point on the route to the clicked location
@@ -62,8 +62,8 @@ function addOutAndBackRouteInteraction(mainMap, layerId, geojson, track, totalDi
         });
     }
 
-    mainMap.on('click', layerId, handleInteraction);
-    mainMap.on('touchstart', layerId, handleInteraction);
+    mainMap.on('click', interactionLayerId, handleInteraction);
+    mainMap.on('touchstart', interactionLayerId, handleInteraction);
 }
 
 
@@ -147,13 +147,13 @@ export function updatePopupContent(popup, geojson, nearestPoint, direction, trac
 
 
 // Function to handle loop routes with distance and elevation calculation
-function addLoopRouteInteraction(mainMap, layerId, geojson, track, totalDistance, totalElevationGain) {
-    mainMap.off('click', layerId);
-    mainMap.off('touchstart', layerId);
+function addLoopRouteInteraction(mainMap, layerId, interactionLayerId, geojson, track, totalDistance, totalElevationGain) {
+    mainMap.off('click', interactionLayerId);
+    mainMap.off('touchstart', interactionLayerId);
 
     function handleInteraction (e) {
         // Prevent interference with POI clicks
-        const features = mainMap.queryRenderedFeatures(e.point, { layers: [layerId] });
+        const features = mainMap.queryRenderedFeatures(e.point, { layers: [interactionLayerId] });
         if (features.length === 0) return;
 
         const clickedPoint = point([e.lngLat.lng, e.lngLat.lat]);
@@ -171,6 +171,7 @@ function addLoopRouteInteraction(mainMap, layerId, geojson, track, totalDistance
 
         const popupEntry = {
             layerId,
+            interactionLayerId,
             popup,
             geojson,
             nearestPoint,
@@ -187,8 +188,8 @@ function addLoopRouteInteraction(mainMap, layerId, geojson, track, totalDistance
             }
         });
     }
-    mainMap.on('click', layerId, handleInteraction);
-    mainMap.on('touchstart', layerId, handleInteraction);
+    mainMap.on('click', interactionLayerId, handleInteraction);
+    mainMap.on('touchstart', interactionLayerId, handleInteraction);
 }
 
 //-------------------POI Popups------------

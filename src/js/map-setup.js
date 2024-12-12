@@ -110,6 +110,7 @@ export function loadGPXTracksWithPOIs(tracks, index) {
                 // Unique source and layer IDs for each GPX track
                 const sourceId = `gpxTrack${index}`;
                 const layerId = `gpxTrackLine${index}`;
+                const interactionLayerId = `gpxTrackInteraction${index}`;
                 const poiSourceId = `gpxTrackPOIsSource${index}`;
                 const poiLayerId = `gpxTrackPOIs${index}`;
                 const nameLayerId = `gpxTrackName${index}`;
@@ -117,6 +118,7 @@ export function loadGPXTracksWithPOIs(tracks, index) {
                 // Remove existing sources and layers if they already exist
                 if (mainMap.getSource(sourceId)) {
                     mainMap.removeLayer(layerId);
+                    mainMap.removeSource(interactionLayerId);
                     mainMap.removeSource(sourceId);
                 }
                 if (mainMap.getSource(poiSourceId)) {
@@ -143,8 +145,25 @@ export function loadGPXTracksWithPOIs(tracks, index) {
                         'line-cap': 'round'
                     },
                     'paint': {
-                        'line-color': '#c3002f', // Red color for the track
+                        'line-color': track.color || '#c3002f', // Red color for the track
                         'line-width': 3
+                    }
+                });
+
+                // Add an invisible, wider line layer for interactions
+                mainMap.addLayer({
+                    'id': interactionLayerId,
+                    'type': 'line',
+                    'source': sourceId,
+                    'layout': {
+                        'line-join': 'round',
+                        'line-cap': 'round',
+                        'visibility': 'visible' // Ensure the layer is visible
+                    },
+                    'paint': {
+                        'line-color': '#000000', // Color doesn't matter since it's transparent
+                        'line-width': 20, // Increase this value to make the touch area larger
+                        'line-opacity': 0 // Make the line invisible
                     }
                 });
 
@@ -215,16 +234,17 @@ export function loadGPXTracksWithPOIs(tracks, index) {
 
                 // Add interactions based on route type
                 if (track.type === 'loop') {
-                    addLoopRouteInteraction(mainMap, layerId, geojson, track, distance, totalElevationGain);
+                    addLoopRouteInteraction(mainMap, layerId, interactionLayerId, geojson, track, distance, totalElevationGain);
                 } else {
 
-                    addOutAndBackRouteInteraction(mainMap, layerId, geojson, track, distance, totalElevationGain);
+                    addOutAndBackRouteInteraction(mainMap, layerId, interactionLayerId, geojson, track, distance, totalElevationGain);
                 }
                 
 
                 // Store the popup instance and its update function for future updates
                 const popupEntry = {
                     layerId,
+                    //interactionLayerId,
                     geojson,
                     track,
                     distance,
@@ -239,7 +259,7 @@ export function loadGPXTracksWithPOIs(tracks, index) {
                 popupdata.push(popupEntry);
 
                 // Change the cursor to a pointer when the mouse is over the track, route name, or POIs
-                mainMap.on('mouseenter', layerId, function () {
+                mainMap.on('mouseenter', interactionLayerId, function () {
                     mainMap.getCanvas().style.cursor = 'pointer';
                 });
                 mainMap.on('mouseenter', poiLayerId, function () {
@@ -250,7 +270,7 @@ export function loadGPXTracksWithPOIs(tracks, index) {
                 });
 
                 // Change it back to the default when it leaves
-                mainMap.on('mouseleave', layerId, function () {
+                mainMap.on('mouseleave', interactionLayerId, function () {
                     mainMap.getCanvas().style.cursor = '';
                 });
                 mainMap.on('mouseleave', poiLayerId, function () {
