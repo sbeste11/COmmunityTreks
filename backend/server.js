@@ -39,7 +39,9 @@ app.use(
             connectSrc: [
                 "'self'",
                 "https://api.mapbox.com",
-                "https://events.mapbox.com"
+                "https://events.mapbox.com",
+                "https://www.googletagmanager.com",
+                "https://www.google-analytics.com"
             ],
             workerSrc: ["'self'", "blob:"], // Allow blob URLs for workers
             objectSrc: ["'none'"], // Disallow <object> and <embed>
