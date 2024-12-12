@@ -44,7 +44,7 @@ fetch('/mapbox-token')
             style: 'mapbox://styles/mapbox/outdoors-v12',
         });
         //console.log('Initializing mainMap...');
-        
+        loadGoogleTag();
 
         // Add images after the map is loaded
         mainMap.on('load', async () => {
