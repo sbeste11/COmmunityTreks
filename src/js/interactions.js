@@ -11,8 +11,9 @@ import { popupdata } from './map-setup.js'
 // Function to handle direct or out-and-back routes
 function addOutAndBackRouteInteraction(mainMap, layerId, geojson, track, totalDistance, totalElevationGain) {
     mainMap.off('click', layerId);
+    mainMap.off('touchstart', layerId);
 
-    mainMap.on('click', layerId, function (e) {
+    function handleInteraction (e) {
         // Find the nearest point on the route to the clicked location
         const clickedPoint = point([e.lngLat.lng, e.lngLat.lat]);
         const nearestPoint = nearestPointOnLine(geojson.features[0], clickedPoint, { units: 'kilometers' });
@@ -59,7 +60,10 @@ function addOutAndBackRouteInteraction(mainMap, layerId, geojson, track, totalDi
                 popupdata.splice(index, 1);
             }
         });
-    });
+    }
+
+    mainMap.on('click', layerId, handleInteraction);
+    mainMap.on('touchstart', layerId, handleInteraction);
 }
 
 
@@ -145,7 +149,9 @@ export function updatePopupContent(popup, geojson, nearestPoint, direction, trac
 // Function to handle loop routes with distance and elevation calculation
 function addLoopRouteInteraction(mainMap, layerId, geojson, track, totalDistance, totalElevationGain) {
     mainMap.off('click', layerId);
-    mainMap.on('click', layerId, function (e) {
+    mainMap.off('touchstart', layerId);
+
+    function handleInteraction (e) {
         // Prevent interference with POI clicks
         const features = mainMap.queryRenderedFeatures(e.point, { layers: [layerId] });
         if (features.length === 0) return;
@@ -180,7 +186,9 @@ function addLoopRouteInteraction(mainMap, layerId, geojson, track, totalDistance
                 popupdata.splice(index, 1);
             }
         });
-    });
+    }
+    mainMap.on('click', layerId, handleInteraction);
+    mainMap.on('touchstart', layerId, handleInteraction);
 }
 
 //-------------------POI Popups------------
