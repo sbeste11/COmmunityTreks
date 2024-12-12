@@ -29,7 +29,7 @@ app.use(
                 "https://api.mapbox.com", // Allow Mapbox scripts
                 "https://events.mapbox.com", // allow mapbox events
                 "https://cdnjs.cloudflare.com",
-                // "'unsafe-inline'" // Required for some dynamically inserted scripts, but should be avoided if possible
+                "'unsafe-inline'" // Required for some dynamically inserted scripts, but should be avoided if possible
             ],
             styleSrc: [
                 "'self'",
