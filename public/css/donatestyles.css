@@ -37,6 +37,12 @@ header p {
     background-color: #f9f9f9;
 }
 
+.qr-code {
+    width: 100%; 
+    max-width: 240px; 
+    margin-top: 10px;
+}
+
 .donate-card h3 {
     margin-top: 0;
 }
@@ -146,6 +152,8 @@ header p {
         font-size: 14px;
     }
 }
+
+
 
 @media (max-width: 480px) {
     #logo-container {

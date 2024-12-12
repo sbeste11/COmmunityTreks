@@ -44,7 +44,7 @@
         "lat": 39.965690,        
         "lng": -105.292064,        
         "icon": "pass",        
-        "description": "",
+        "description": "Soak in the view, here to the summit of Bear pk is quite steep.",
         "image": "./Tracks/Bear_SouthBoulder_viaShanahan/fern_saddle.jpg"    
     },
     { 
