@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearInterval(waitForMap); // Stop checking once the map is initialized
             loadPreferences(); // Safely load preferences after map is ready
         }
+        console.log('here');
     }, 100); // Check every 100ms
 
     // Event listener for the unit switch
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Load and validate unit preference
         const unitPreference = JSON.parse(localStorage.getItem('unit'));
         if (unitPreference && isValid(unitPreference.timestamp)) {
+            console.log('here unit');
             unitSwitch.checked = unitPreference.value === 'miles';
             isKilometers = unitPreference.value !== 'miles';
             unitLabel.textContent = unitSwitch.checked ? 'Miles' : 'Km';
@@ -143,9 +145,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Load and validate map style preference
         const mapStylePreference = JSON.parse(localStorage.getItem('mapStyle'));
         if (mapStylePreference && isValid(mapStylePreference.timestamp)) {
+            console.log('here 2');
             mapStyleSelect.value = mapStylePreference.value;
             applyMapStyle(mapStylePreference.value);
         } else {
+            console.log('here 3');
             // Apply the default map style if none is set
             applyMapStyle('default');
         }

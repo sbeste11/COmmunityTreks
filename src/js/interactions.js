@@ -172,6 +172,7 @@ function addLoopRouteInteraction(mainMap, layerId, interactionLayerId, geojson, 
         const popupEntry = {
             layerId,
             interactionLayerId,
+            track,
             popup,
             geojson,
             nearestPoint,

@@ -44,6 +44,7 @@ fetch('/mapbox-token')
             style: 'mapbox://styles/mapbox/outdoors-v12',
         });
         //console.log('Initializing mainMap...');
+        
 
         // Add images after the map is loaded
         mainMap.on('load', async () => {
@@ -54,6 +55,7 @@ fetch('/mapbox-token')
 
                 // call loadGPXTracks
                 loadGPXTracks();
+                window.mainMap = mainMap;
             } catch (error) {
                 console.error('Error during map initialization:', error);
             }
@@ -117,8 +119,8 @@ export function loadGPXTracksWithPOIs(tracks, index) {
 
                 // Remove existing sources and layers if they already exist
                 if (mainMap.getSource(sourceId)) {
-                    mainMap.removeLayer(layerId);
                     mainMap.removeSource(interactionLayerId);
+                    mainMap.removeLayer(layerId);
                     mainMap.removeSource(sourceId);
                 }
                 if (mainMap.getSource(poiSourceId)) {
