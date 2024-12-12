@@ -45,7 +45,7 @@
         "lng": -105.301554, 
         "icon": "summit", 
         "description": "Green Mountain Summit<br><br> There is a plaque on the summit which labels the surrounding mountains, there are also many spots to take a break just beneath the summit area. Many hikers choose to take a different route down to their car, just be sure to check maps on your phone or occasionally on posted signs.",
-        "image": "./Tracks/Green_Mtn_via_1st_Flatiron/Green_summit.jpg"
+        "image": "./Tracks/Green_Mtn_via_1st_Flatiron/green_summit.jpg"
     }
 
 ]
