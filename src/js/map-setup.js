@@ -10,26 +10,6 @@ export let isKilometers = true; // This will store the user's unit preference
 export let popupdata = [];
 export let mainMap = null;
 
-// Function to fetch and inject the Google Tag snippet
-function loadGoogleTag() {
-    fetch('/google-tag')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch Google Tag snippet');
-            }
-            return response.text();
-        })
-        .then(tagSnippet => {
-            // Create a container to hold the tag snippet
-            const container = document.createElement('div');
-            container.innerHTML = tagSnippet;
-
-            // Append the script(s) to the head
-            document.head.appendChild(container.querySelector('script'));
-        })
-        .catch(error => console.error('Error loading Google Tag:', error));
-}
-
 // Fetch Mapbox token and initialize map
 fetch('/mapbox-token')
     .then(response => response.json())
@@ -44,7 +24,6 @@ fetch('/mapbox-token')
             style: 'mapbox://styles/mapbox/outdoors-v12',
         });
         //console.log('Initializing mainMap...');
-        loadGoogleTag();
 
         // Add images after the map is loaded
         mainMap.on('load', async () => {
