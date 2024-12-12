@@ -1,4 +1,6 @@
-function loadPOIIcons() {
+import { mainMap } from './map-setup.js';
+
+export function loadPOIIcons() {
     // Load each icon image you want to use for your POIs
     mainMap.loadImage('./Images/wilderness.png', function (error, image) {
         if (error) throw error;

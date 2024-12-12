@@ -159,6 +159,20 @@ input:checked + .slider:before {
     background-color: #111;
 }
 
+/* poi images */
+#poi-img {
+    width: 100%; 
+    max-width: 250px; 
+    margin-top: 10px;
+}
+
+#img {
+    width: 100%; 
+    max-width: 100px; 
+    margin-top: 10px;
+}
+
+
 /* ----------------- RESPONSIVE STYLES ----------------- */
 @media screen and (max-width: 768px) {
     #logo-container {

@@ -1,19 +1,26 @@
 import length from '@turf/length';
 import { point } from '@turf/helpers';
 import distance from '@turf/distance';
+import { mainMap } from './map-setup.js';
+import { isKilometers } from './map-setup.js';
+import { loadPOIs } from './map-setup.js';
+import { loadPOIIcons } from './poi-loader.js'; 
+import { loadGPXTracksWithPOIs } from './map-setup.js';
+import { popupdata } from './map-setup.js'
+import { updatePopupContent } from './interactions.js'
 
 // Function to convert distance and elevation based on the unit preference
-function convertDistance(distance) {
+export function convertDistance(distance) {
     return isKilometers ? distance.toFixed(2) + ' km' : (distance * 0.621371).toFixed(2) + ' miles';
 }
 
-function convertElevation(elevation) {
+export function convertElevation(elevation) {
     return isKilometers ? elevation.toFixed(2) + ' m' : (elevation * 3.28084).toFixed(2) + ' ft';
 }
 
 
 // Function to calculate distance and elevation gain based on the direction and nearest point
-function calculateDistanceAndElevation(geojson, nearestPoint, direction) {
+export function calculateDistanceAndElevation(geojson, nearestPoint, direction) {
     const coordinates = geojson.features[0].geometry.coordinates;
 
     // Check if nearestPoint and its properties exist
@@ -23,14 +30,14 @@ function calculateDistanceAndElevation(geojson, nearestPoint, direction) {
     }
 
     const nearestIndex = nearestPoint.properties.index;
-    let distance = 0;
+    let distanceNow = 0;
     let elevationGain = 0;
 
     if (direction === 'counterclockwise') {
         for (let i = 0; i <= nearestIndex; i++) {
             if (i > 0) {
                 const segmentDistance = distance(point(coordinates[i - 1]), point(coordinates[i]), { units: 'kilometers' });
-                distance += segmentDistance;
+                distanceNow += segmentDistance;
 
                 const elevationDiff = coordinates[i][2] - coordinates[i - 1][2];
                 if (elevationDiff > 0) {
@@ -42,7 +49,7 @@ function calculateDistanceAndElevation(geojson, nearestPoint, direction) {
         for (let i = coordinates.length - 1; i >= nearestIndex; i--) {
             if (i < coordinates.length - 1) {
                 const segmentDistance = distance(point(coordinates[i]), point(coordinates[i + 1]), { units: 'kilometers' });
-                distance += segmentDistance;
+                distanceNow += segmentDistance;
 
                 const elevationDiff = coordinates[i - 1][2] - coordinates[i][2];
                 if (elevationDiff > 0) {
@@ -53,7 +60,7 @@ function calculateDistanceAndElevation(geojson, nearestPoint, direction) {
     }
 
     return {
-        distanceToPoint: distance,
+        distanceToPoint: distanceNow,
         elevationToPoint: elevationGain
     };
 }
@@ -229,7 +236,7 @@ function reloadRoutesAndPOIs() {
         .then(response => response.json())
         .then(tracks => {
             return Promise.all(
-                tracks.mainMap((track, index) => {
+                tracks.map((track, index) => {
                     // Load POIs for each track
                     return loadPOIs(track.url).then(pois => {
                         track.pois = pois; // Assign loaded POIs to the track

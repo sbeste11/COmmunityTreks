@@ -2,6 +2,10 @@ import length from '@turf/length';
 import { point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import distance from '@turf/distance';
+import { calculateDistanceAndElevation } from './calculations.js'
+import { convertDistance } from './calculations.js'
+import { convertElevation } from './calculations.js'
+import { popupdata } from './map-setup.js'
 
 
 // Function to handle direct or out-and-back routes
@@ -60,7 +64,7 @@ function addOutAndBackRouteInteraction(mainMap, layerId, geojson, track, totalDi
 
 
 // Function to update popups when the unit toggle is switched
-function updatePopupContent(popup, geojson, nearestPoint, direction, track) {
+export function updatePopupContent(popup, geojson, nearestPoint, direction, track) {
     // Check if this is a loop or direct (out-and-back) route
     if (track.type === 'loop') {
         // For loop routes, calculate distance and elevation gain to the nearest point
@@ -119,8 +123,8 @@ function updatePopupContent(popup, geojson, nearestPoint, direction, track) {
             }
         }
 
-        const outAndBackDistance = forwardDistance * 2;
-        const outAndBackElevationGain = forwardElevationGain * 2;
+        const outAndBackDistance = forwardDistance;
+        const outAndBackElevationGain = forwardElevationGain;
 
         const convertedDistance = convertDistance(outAndBackDistance);
         const convertedElevation = convertElevation(outAndBackElevationGain);
@@ -195,7 +199,7 @@ function addPOIPopupInteraction(mainMap, poiLayerId) {
         `;
 
         if (imageUrl) {
-            popupContent += `<br><img src="${imageUrl}" alt="${name}" style="width: 100%; max-width: 200px; margin-top: 10px;">`;
+            popupContent += `<br><img src="${imageUrl}" alt="${name}" id="poi-img">`;
         }
 
         // Create and add the popup to the map

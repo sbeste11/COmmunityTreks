@@ -4,12 +4,11 @@ import { addLoopRouteInteraction } from './interactions.js';
 import { addOutAndBackRouteInteraction } from './interactions.js';
 
 // Global variable to track unit preference (kilometers by default)
-let isKilometers = true; // This will store the user's unit preference
-let isLight = true; // This will store the user's color preference
+export let isKilometers = true; // This will store the user's unit preference
 
 // Array to store popup information for routes and POIs
-let popupdata = [];
-let mainMap;
+export let popupdata = [];
+export let mainMap = null;
 
 // Function to fetch and inject the Google Tag snippet
 function loadGoogleTag() {
@@ -90,7 +89,7 @@ async function addMapImages() {
 }
 
 // Function to load and parse the GPX file
-function loadGPXTracksWithPOIs(tracks, index) {
+export function loadGPXTracksWithPOIs(tracks, index) {
     tracks.forEach((track) => {
         fetch(track.url) 
             .then(response => response.text())
@@ -301,7 +300,7 @@ function loadGPXTracks() {
         .catch(error => console.error('Error loading tracks file:', error));
 }
 
-function loadPOIs(trackUrl) {
+export function loadPOIs(trackUrl) {
     // Derive the POI file path from the track URL
     const trackName = trackUrl.split('/').slice(-1)[0].replace('.gpx', '');
     const poiFilePath = `Tracks/${trackName}/poi.txt`;
@@ -334,9 +333,6 @@ function getPriorityForIcon(icon) {
     return priorityMap[icon] || 0; // Default to 0 if the icon is not in the map
 }
 
-
-// Import all other js
-import './calculations.js';
-//import './track-loader.js';
-import './poi-loader.js';
 import './interactions.js';
+import './calculations.js';
+import './poi-loader.js';

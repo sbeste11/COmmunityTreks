@@ -45,7 +45,7 @@
         "lng": -105.292064,        
         "icon": "pass",        
         "description": "",
-        "image": "fern_saddle"    
+        "image": "./Tracks/Bear_SouthBoulder_viaShanahan/fern_saddle.jpg"    
     },
     { 
         "name": "Summit", 
